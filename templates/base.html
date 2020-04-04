@@ -6,15 +6,31 @@
     <title>Base HTML</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
-    It works!
+<body bgcolor='#273238'>
+    <div class="container">
+        <nav class="#37474f blue-grey darken-3">
+        <div class="container nav-wrapper">
+            <a href="/" class="brand-logo">Tatbak</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down" data-activates="mobile-demo">
+                <li><a href="#">Mixes</a></li>
+                <li><a href="/products">Products</a></li>
+                <li><a href="#">Blogs</a></li>
+                <li><a href="#">News</a></li>
+            </ul>
+            
+        </div>
+        </nav>
+    </div>
+
     {% block content%}
 
     {% endblock content %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
 </html>

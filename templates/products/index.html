@@ -1,12 +1,27 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
     {% if most_rated_products %}
-        <ul>
-            {% for product in most_rated_products %}
-                <li>{{ product.brand }} {{product.favour}}</li>
-            {% endfor %}
-        </ul>
+        <div class='container'>
+            <div class="row">
+                {% for product in most_rated_products %}
+                        <div class="col s12 m12 l4">
+                            <div class="card small hoverable">
+                                <div class="card-image">
+                                    <img src="{% static "images/pikcha.jpg" %}">
+                                    <span class="card-title"><b>{{ product.brand }}</b> {{product.favour}}</span>
+                                </div>
+                                <div class="card-content">
+                                    <p>I am a very simple card.</p>
+                                </div>
+                                <div class="card-action">
+                                    <a href="#">This is a link</a>  
+                                </div>
+                            </div>
+                        </div>                   
+                {% endfor %}
+            </div>
+        </div>
     {% else %}
         <p>No products :(</p>
     {% endif %}

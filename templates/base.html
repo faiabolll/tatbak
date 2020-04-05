@@ -6,9 +6,9 @@
     <title>Base HTML</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
 </head>
 <body bgcolor='#273238'>
     <div class="container">
@@ -16,9 +16,9 @@
         <div class="container nav-wrapper">
             <a href="/tobaccos" class="brand-logo">Tatbak</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down" data-activates="mobile-demo">
-                <li><a href="mixes">Mixes</a></li>
-                <li><a href="products">Products</a></li>
-                <li><a href="3213123">Blogs</a></li>
+                <li><a href="{% url 'tobaccos:mixes' %}">Mixes</a></li>
+                <li><a href="{% url 'tobaccos:products' %}">Products</a></li>
+                <li><a href="#">Blogs</a></li>
                 <li><a href="#">News</a></li>
             </ul>
             

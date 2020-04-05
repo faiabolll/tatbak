@@ -29,3 +29,6 @@ class Mix(models.Model):
     author_link = models.CharField(max_length=200)
     description = models.CharField(max_length=1500)
     rating = models.DecimalField(max_digits=2, decimal_places=1)
+
+    def __str__(self):
+        return str(self.structure)

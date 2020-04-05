@@ -8,13 +8,8 @@
             <div class="card-content white-text">
                 <form action="{% url 'tobaccos:create_mix' %}" method="post">
                     {% csrf_token %}
-                    <input type="text" name="brand_favour" id="brand_favour" placeholder="Put in">
-                    <label for="brand_favour">Tobacco name</label>
-                    <input type="text" name="author_name" id="author_name" placeholder="Introduce yourself">
-                    <label for="author_name">Author</label>
-                    <!-- <input type="" name="description" placeholder="Describe it. What is this?"> -->
-                    <textarea id="textarea"></textarea>
-                    <label for="textarea">Description</label>
+                    {{ form.as_p }}
+                    <button type="submit" class="save btn btn-default">Save</button>
                 </form>
             </div>
         </div>

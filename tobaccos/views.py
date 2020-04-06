@@ -1,6 +1,6 @@
 from django.shortcuts import render, reverse
 from django.views import generic
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django import forms
 from .models import Product, Mix
 from .forms import MixForm
@@ -15,14 +15,17 @@ def ProductIndexView(request):
 
 def MixIndexView(request):
     query = Mix.objects.all()
-    return render(request, 'mixes/index.html', {'mixes_list':query})
+    return render(request, 'mixes/index.html', {'recent_mixes_list':query})
 
 def create_mix(request):
+    query = Mix.objects.all()
     if request.method == 'POST':
         form = MixForm(request.POST)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('tobaccos:mixes'))
+            new_mix = form.save()
+            return JsonResponse({'new_mix': forms.models.model_to_dict(new_mix)}, status=200)
     else:
         form = MixForm()
-    return render(request, 'mixes/create_mix.html', {'form':form})
+    context = {'recent_mixes_list':query, 'form':form}
+    return render(request, 'mixes/index.html', context)
+

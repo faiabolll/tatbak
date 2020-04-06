@@ -27,7 +27,7 @@ class Mix(models.Model):
     structure = models.IntegerField(default=0)
     author_name = models.CharField(max_length=100)
     author_link = models.CharField(max_length=200)
-    description = models.CharField(max_length=1500)
+    description = models.TextField('stuff')
     rating = models.DecimalField(max_digits=2, decimal_places=1)
 
     def __str__(self):

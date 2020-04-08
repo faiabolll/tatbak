@@ -18,15 +18,14 @@ $(document).ready(function(){
         });
     });
 
-    // $("#mix_create_button").click(function(){
-    //     $.ajax({
-    //         url: $("#mix_create_button").data('url'),
-    //         success: function(response){
-    //             $("#form_container").append(
-    //                 ''
-    //             )
-    //         }
-    //     });
-    // )};
+    $("#mix_create_button").click(function(){
+        console.log('eyeyey')
+        $.ajax({
+            url: '',
+            success: function(response){
+                $("#form_container").style.color = "red";
+            }
+        });
+    });
 
 });

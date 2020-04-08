@@ -1,24 +1,23 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<a class="waves-effect waves-light btn-large" id="mix_create_button" data-url="{% url 'tobaccos:create_mix' %}">Add mix</a>
+<a class="waves-effect waves-light btn-large" id="mix_create_button">Add mix</a>
 
-<div class="container" id="form_container">
-    <div class="row">
-        <div class="col s12 m6">
-        <div class="card blue-grey darken-1">
-            <div class="card-content white-text">                
-                <form method="post" id="mix_create_form"
-                data-url="{% url 'tobaccos:create_mix' %}">
-                    {% csrf_token %}
-                    <!-- <div class="chips">
-                        <input class="custom-class">
-                      </div> -->
-                    {{ form }}
-                    <button type="button" class="save btn btn-default" id="mix_create_submit">Save</button>
-                </form>
+<div style="display:none;" id="form_container">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">                
+                    <form method="post" id="mix_create_form"
+                    data-url="{% url 'tobaccos:mixes' %}">
+                        {% csrf_token %}
+                        {{ form }}
+                        <button type="button" class="save btn btn-default" id="mix_create_submit">Save</button>
+                    </form>
+                </div>
             </div>
-        </div>
+            </div>
         </div>
     </div>
 </div>

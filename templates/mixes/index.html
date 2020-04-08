@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<a class="waves-effect waves-light btn-large" id="mix_create_button">Add mix</a>
+<a class="waves-effect waves-light btn-large" id="mix_create_button" data-url="{% url 'tobaccos:mixes' %}">Add mix</a>
 
 <div style="display:none;" id="form_container">
     <div class="container">

@@ -19,11 +19,18 @@ $(document).ready(function(){
     });
 
     $("#mix_create_button").click(function(){
-        console.log('eyeyey')
         $.ajax({
-            url: '',
+            url: $("#mix_create_button").data('url'),
             success: function(response){
-                $("#form_container").style.color = "red";
+                var form_is_hidden = $("#mix_create_button").html().slice(0,7) == "Add mix"
+                if (form_is_hidden){
+                    $("#form_container")[0].style.display = "inline";
+                    $("#mix_create_button").html("Close form");
+                }
+                else {
+                    $("#form_container")[0].style.display = "none";
+                    $("#mix_create_button").html("Add mix");
+                }
             }
         });
     });

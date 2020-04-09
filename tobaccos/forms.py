@@ -16,9 +16,3 @@ class MixForm(forms.ModelForm):
             })
         }
 
-MixModelFormset = forms.modelformset_factory(
-    Mix,
-    # fields=('structure', 'author_name', 'author_link', 'description', 'rating'),
-    fields = '__all__',
-    extra=0
-)

@@ -15,7 +15,8 @@ def ProductIndexView(request):
 
 def MixIndexView(request):
     query = Mix.objects.all()
-    return render(request, 'mixes/index.html', {'recent_mixes_list':query})
+    context = {'recent_mixes_list':query, 'form':MixForm()}
+    return render(request, 'mixes/index.html', context)
 
 def create_mix(request):
     query = Mix.objects.all()

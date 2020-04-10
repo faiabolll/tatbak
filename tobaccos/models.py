@@ -24,7 +24,7 @@ class Product(models.Model):
 
 
 class Mix(models.Model):
-    structure = models.IntegerField(default=0)
+    structure = models.CharField(max_length=1000)
     author_name = models.CharField(max_length=100)
     author_link = models.CharField(max_length=200)
     description = models.TextField('stuff')

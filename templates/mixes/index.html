@@ -37,36 +37,37 @@
                 </div>
             </div>
             </div>
+            
         </div>
         <div class='divider'></div>
     </div>
 </div>
 
 <!-- Mix cards-->
-{% if recent_mixes_list %}
 <div class="container" id="mixes_list">
+{% if recent_mixes_list %}
+    {% for mix in recent_mixes_list %} 
     <div class="row">
-        {% for mix in recent_mixes_list %}
         <div class="col s12 m12 l12">
-            <div class="card small hoverable">
+            <div class="card small hoverable" id="mix_card" data-id="{{ mix.id }}">
                 <div class="card-image">
                     <img src="{% static 'images/pikcha.jpg' %}">
-                    <span class="card-title"><b>{{ mix.author_name }}</b> {{ mix.structure }}</span>
+                    <span class="card-title"><b>{{ mix.author_name }} </b> {{ mix.structure }}</span>
                 </div>
                 <div class="card-content">
                     <p>{{ mix.description }}</p>
                 </div>
                 <div class="card-action">
-                    <a href="#" class="right" id="delete_mix" data-url="{% url 'tobaccos:mixes' %}">Delete mix</a>  
+                    <a href="#" class="right" id="delete_mix" data-id="{{ mix.id }}" data-url="{% url 'tobaccos:mixes' %}">Delete mix</a>  
                 </div>
-            </div>
-        </div>  
-        {% endfor %}
+            </div>        
+    </div>  
     </div>
-</div>
+    {% endfor %}
+
 
 {% else %}
-    <h1 style="text-align:center;">No mixes:(</h1>
+    <h1 style="text-align:center;" id="no_mixes">No mixes:(</h1>
 {% endif %}
-
+</div>
 {% endblock content %}

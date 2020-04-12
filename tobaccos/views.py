@@ -29,4 +29,11 @@ def create_mix(request):
         form = MixForm()
     context = {'recent_mixes_list':query, 'form':form}
     return render(request, 'mixes/index.html', context)
-
+    
+def delete_mix(request, mix_id):
+    if request.method=='POST':
+        mix = Mix.objects.get(id=mix_id)
+        mix.delete()
+        return JsonResponse({'result': 'ok'}, status=200)
+    else:
+        create_mix(request)

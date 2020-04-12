@@ -21,23 +21,18 @@
                     <form method="post" id="mix_create_form"
                     data-url="{% url 'tobaccos:create_mix' %}">
                         {% csrf_token %}
+                        <label for="id_structure" class="active">Structure:</label>
+                        <input style="display:none;" type="text" name="structure" maxlength="1000" required="" id="id_structure" class="input">
+                        <div class="chips input-field"></div>
                         {% for field in form %}
-                            {% if forloop.counter == 1 %}
-                            <label for="id_structure" class="active">Structure:</label>
-                            <div class="chips input-field">
-                                {{ field }}
-                            </div>
-                            {% else %}
                             <label for="id_{{ field.name }}">{{field.label}}</label>
                                 {{ field }}
-                            {% endif %}
                         {% endfor %}
                         <button type="button" class="save btn btn-default" id="mix_create_submit">Save</button>
                     </form>
                 </div>
             </div>
             </div>
-            
         </div>
         <div class='divider'></div>
     </div>
@@ -49,6 +44,8 @@
     {% for mix in recent_mixes_list %} 
     <div class="row">
         <div class="col s12 m12 l12">
+            
+                
             <div class="card small hoverable" id="mix_card" data-id="{{ mix.id }}">
                 <div class="card-image">
                     <img src="{% static 'images/pikcha.jpg' %}">
@@ -60,14 +57,14 @@
                 <div class="card-action">
                     <a href="#" class="right" id="delete_mix" data-id="{{ mix.id }}" data-url="{% url 'tobaccos:mixes' %}">Delete mix</a>  
                 </div>
-            </div>        
-    </div>  
+            </div>
+            
+        </div>  
     </div>
     {% endfor %}
-
-
 {% else %}
     <h1 style="text-align:center;" id="no_mixes">No mixes:(</h1>
 {% endif %}
 </div>
+
 {% endblock content %}

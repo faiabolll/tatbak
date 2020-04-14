@@ -4,7 +4,8 @@ from .models import Mix
 class MixForm(forms.ModelForm):
     class Meta:
         model = Mix
-        fields = ['author_name', 'author_link', 'description', 'rating']
+        # fields = ['author_name', 'author_link', 'description', 'rating']
+        fields = "__all__"
         
 
     def __init__(self, *args, **kwargs):

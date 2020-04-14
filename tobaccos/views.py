@@ -1,8 +1,8 @@
 from django.shortcuts import render, reverse
 from django.views import generic
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django import forms
-from .models import Product, Mix
+from .models import Product, Mix, Tobacco
 from .forms import MixForm
 
 # Create your views here.
@@ -37,3 +37,33 @@ def delete_mix(request, mix_id):
         return JsonResponse({'result': 'ok'}, status=200)
     else:
         create_mix(request)
+
+# def get_names_for_tobacco_brand(request, brand_name):
+#     if request.method == 'GET':
+#         query_set = Tobacco.objects.filter(
+#             brand=brand_name,
+#         )
+#         names = [tobacco.flavour for tobacco in query_set]
+#         return JsonResponse({'result':'ok', 'names_for_tobacco_brand':names}, status=200)
+#     else:
+#         return HttpResponse('asdasd')
+
+# def get_distinct_brand_names(request):
+#     if request.method == 'GET':
+#         query_set = Tobacco.objects.values_list('brand').distinct()
+#         names = [brand[0] for brand in query_set]       
+#         return JsonResponse({'result':'ok', 'brand_names':names}, status=200)
+#     else:
+#         return HttpResponse('asdasd')
+
+def get_names_for_autocomplete(request):
+    if request.method == 'GET':
+        brand_names = Tobacco.objects.values_list('brand').distinct()
+        def get_list_of_tobacco_names(brand):
+            tobacco_names = Tobacco.objects.filter(brand=brand)
+            return [tobacco.flavour for tobacco in tobacco_names]
+        autocomplete_options = {brand[0]:get_list_of_tobacco_names(brand[0]) for brand in brand_names}
+        return JsonResponse({"result":"ok", "autocomplete_options":autocomplete_options})
+    else:
+        return HttpResponse('error message')
+        

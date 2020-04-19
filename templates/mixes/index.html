@@ -1,26 +1,64 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
+<!-- Add form button -->
 <div class='container'>
     <div class='section'>
         <div class='center-align'>
-        <a class="waves-effect waves-light btn-large" id="mix_create_button" data-url="{% url 'tobaccos:mixes' %}">Add mix</a>
+            <a class="waves-effect waves-light btn-large" id="mix_create_button" data-url="{% url 'tobaccos:mixes' %}">Add mix</a>
+        </div>
     </div>
-</div>
 <div class='divider'></div>
 </div>
 
+<!-- Form to add mix -->
 <div style="display:none;" id="form_container">
     <div class="container">
         <div class="row">
-            <div class="col s12 m6">
+            <div class="col s12 m12 l12">
             <div class="card blue-grey darken-1">
                 <div class="card-content white-text">                
-                    <form method="post" id="mix_create_form"
-                    data-url="{% url 'tobaccos:create_mix' %}">
+                    <form method="post" id="mix_create_form" data-url="{% url 'tobaccos:create_mix' %}">
                         {% csrf_token %}
-                        {{ form }}
+                        {% for field in form %}
+                            {% if forloop.counter == 1 %}
+
+                            <div class="row">
+                                <div class="col l3 m9 s9">
+                                    <canvas id='myChart' height='250'></canvas>
+                                </div>
+
+                            <label for="id_structure" class="active">Structure:</label>                       
+                                <input style="display:none;" type="text" name="structure" maxlength="1000" required="" id="id_structure" class="input">
+                            <div class="col l9 m12 s12">
+                                <div id="structure_field" data-id="1" data-url="{% url 'tobaccos:get_names_for_autocomplete' %}">
+                                    <div class="row" data-id="1" id="tobacco_string" style="margin-bottom: 0;">
+                                        <div class="col s1 m1 l1">
+                                            <div class="container" style="padding-top: 8px; padding-left: 30px;"><a class="btn-floating btn-small waves-effect waves-light right"
+                                                id="tobacco_add_mix_card" data-id="1"><i class="material-icons">add</i></a></div>
+                                        </div>
+                                        <div class="col l3 input-field" style="margin:0">
+                                            <input type="text" id="tobacco_brand" class="autocomplete" placeholder="Brand">
+                                        </div>
+                                        <div class="col l6 input-field" style="margin:0">
+                                            <input type="text" id="tobacco_flavour" class="autocomplete" placeholder="Name" data-id="1">
+                                        </div>
+                                        <div class="col l1 input-field" style="margin:0">
+                                            <input type="text" id="tobacco_percents" placeholder="Percents" maxlength="2">
+                                        </div>
+                                        <div class="col s1 m1 l1">
+                                            <div class="container" style="padding-top: 8px; padding-left: 30px;"><a class="btn-floating btn-small waves-effect waves-light right"
+                                                id="update_chart" data-id="1"><i class="material-icons">add</i></a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            {% else %}                        
+                                <label for="id_{{ field.name }}">{{field.label}}</label>
+                                    {{ field }}
+                            {% endif %}
+                        {% endfor %}
                         <button type="button" class="save btn btn-default" id="mix_create_submit">Save</button>
                     </form>
                 </div>
@@ -31,30 +69,41 @@
     </div>
 </div>
 
-{% if recent_mixes_list %}
-<div class="container" id="mixes_list">
-    <div class="row">
-        {% for mix in recent_mixes_list %}
-        <div class="col s12 m12 l12">
-            <div class="card horizontal small hoverable">
-                <div class="card-image">
-                    <img src="{% static 'images/pikcha.jpg' %}">
-                    <span class="card-title"><b>{{ mix.author_name }}</b> {{ mix.structure }}</span>
-                </div>
-                <div class="card-content">
-                    <p>{{ mix.description }}</p>
-                </div>
-                <div class="card-action">
-                    <a href="#">This is a link</a>  
-                </div>
-            </div>
-        </div>  
-        {% endfor %}
-    </div>
-</div>
 
-{% else %}
-    <h1 class="align:center">No mixes:(</h1>
-{% endif %}
+<!-- Mix cards with chart plots -->
+<div class="container" id="mixes_list">
+    {% if recent_mixes_list %}
+        {% for mix in recent_mixes_list %} 
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card hoverable mix_card #78909c blue-grey darken-1" data-id="{{ mix.id }}">
+                    
+                    <div class="card-content" style="padding-top: 14px;">
+                        <div class="card-title center-align">Title</div>
+                        <div class="row">
+                                <div class="col l3 m4 s12" style="padding-bottom: 15px; padding-left: 0px; padding-right: 0px;">
+                                    <canvas class="card_chart" id="{{ mix.id }}" height="140"></canvas>
+                                </div>
+                                
+                                <div class="col l9 m8 s12">
+                                    
+                                    <p class="mix_card_structure" data-id="{{ mix.id }}">{{ mix.structure }}</p>
+                                    <p>{{ mix.author_name }}</p>
+                                    <p>{{ mix.author_link }}</p>
+                                    <p>{{ mix.description }}</p>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <a href="#" class="right" id="delete_mix" data-id="{{ mix.id }}" data-url="{% url 'tobaccos:mixes' %}">Delete mix</a>  
+                    </div>
+                </div>
+            </div>  
+        </div>
+        {% endfor %}
+    {% else %}
+        <h1 style="text-align:center;" id="no_mixes">No mixes:(</h1>
+    {% endif %}
+    </div>
 
 {% endblock content %}

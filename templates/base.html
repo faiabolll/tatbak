@@ -6,15 +6,14 @@
     <title>Base HTML</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% include 'includes/base_css.html' %}
+    
 </head>
 <body>
     <div class="container">
         <nav class="#37474f blue-grey darken-3">
         <div class="container nav-wrapper">
-            <a href="/tobaccos" class="brand-logo">Tatbak</a>
+            <a href="{% url 'tobaccos:index' %}" class="brand-logo">Tatbak</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down" data-activates="mobile-demo">
                 <li><a href="{% url 'tobaccos:mixes' %}">Mixes</a></li>
                 <li><a href="{% url 'tobaccos:products' %}">Products</a></li>
@@ -28,40 +27,8 @@
     {% block content%}
 
     {% endblock content %}
- 
-    <div class="chips"></div>
-    <div class="chips chips-initial"></div>
-    <div class="chips chips-placeholder"></div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script>
-       $('.chips').chips();
-  $('.chips-initial').chips({
-    data: [{
-      tag: 'Apple',
-    }, {
-      tag: 'Microsoft',
-    }, {
-      tag: 'Google',
-    }],
-  });
-  $('.chips-placeholder').chips({
-    placeholder: 'Enter a tag',
-    secondaryPlaceholder: '+Tag',
-  });
-  $('.chips-autocomplete').chips({
-    autocompleteOptions: {
-      data: {
-        'Apple': null,
-        'Microsoft': null,
-        'Google': null
-      },
-      limit: Infinity,
-      minLength: 1
-    }
-  });
-    </script>
-    <script src="{% static 'js/tobaccos1.js' %}"></script>
+
+    {% include 'includes/base_scripts.html' %}
 </body>
 
 </html>

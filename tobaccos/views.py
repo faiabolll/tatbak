@@ -1,8 +1,8 @@
 from django.shortcuts import render, reverse
 from django.views import generic
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django import forms
-from .models import Product, Mix
+from .models import Product, Mix, Tobacco
 from .forms import MixForm
 
 # Create your views here.
@@ -29,4 +29,23 @@ def create_mix(request):
         form = MixForm()
     context = {'recent_mixes_list':query, 'form':form}
     return render(request, 'mixes/index.html', context)
+    
+def delete_mix(request, mix_id):
+    if request.method=='POST':
+        mix = Mix.objects.get(id=mix_id)
+        mix.delete()
+        return JsonResponse({'result': 'ok'}, status=200)
+    else:
+        create_mix(request)
 
+def get_names_for_autocomplete(request):
+    if request.method == 'GET':
+        brand_names = Tobacco.objects.values_list('brand').distinct()
+        def get_list_of_tobacco_names(brand):
+            tobacco_names = Tobacco.objects.filter(brand=brand)
+            return [tobacco.flavour for tobacco in tobacco_names]
+        autocomplete_options = {brand[0]:get_list_of_tobacco_names(brand[0]) for brand in brand_names}
+        return JsonResponse({"result":"ok", "autocomplete_options":autocomplete_options})
+    else:
+        return HttpResponse('error message')
+        

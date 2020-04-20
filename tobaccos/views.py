@@ -37,7 +37,6 @@ def delete_mix(request, mix_id):
         return JsonResponse({'result': 'ok'}, status=200)
     else:
         create_mix(request)
-
 def get_names_for_autocomplete(request):
     if request.method == 'GET':
         brand_names = Tobacco.objects.values_list('brand').distinct()
